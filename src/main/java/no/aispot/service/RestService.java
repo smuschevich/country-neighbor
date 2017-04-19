@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import io.reactivex.Observable;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 public class RestService
@@ -43,19 +42,19 @@ public class RestService
 	public <T, R> Observable<T> post(String url, T request, Class<R> responseType, Map<String, ?> uriVariables)
 	{
 		// TODO: implement in the future
-		throw new NotImplementedException();
+		throw new IllegalStateException("not implemented");
 	}
 	
 	public <T> Observable<Void> put(String url, T request, Map<String, ?> uriVariables)
 	{
 		// TODO: implement in the future
-		throw new NotImplementedException();
+		throw new IllegalStateException("not implemented");
 	}
 	
 	public Observable<Void> delete(String url, Map<String, ?> uriVariables)
 	{
 		// TODO: implement in the future
-		throw new NotImplementedException();
+		throw new IllegalStateException("not implemented");
 	}
 	
 	@SuppressWarnings("unchecked")

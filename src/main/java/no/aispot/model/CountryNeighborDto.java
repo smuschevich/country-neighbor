@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class CountryNeighbor
+public class CountryNeighborDto
 {
 	private String flag;
 	private List<String> borders;
