@@ -1,0 +1,32 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+def rxjavaVersion = '2.0.8'
+def lombokVersion = '1.16.10'
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("io.reactivex.rxjava2:rxjava:$rxjavaVersion")
+	compile("org.projectlombok:lombok:$lombokVersion")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
