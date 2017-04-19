@@ -14,7 +14,7 @@ import no.aispot.service.CountryNeighborService;
 
 @RestController()
 @RequestMapping("/neighbors")
-public class CountryNeighborController
+public class CountryNeighborController extends AbstractController
 {
 	@Autowired
 	private CountryNeighborService countryNeighborService;
