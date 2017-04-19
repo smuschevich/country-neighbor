@@ -25,6 +25,7 @@ public class CountryNeighborController extends AbstractController
 	@Autowired
 	private CountryNeighborService countryNeighborService;
 
+	// TODO: List<List<String>> will be replaced by list of objects with custom serialization converter
 	@RequestMapping(method = RequestMethod.GET, path = "/{iso}")
 	public Observable<List<List<String>>> getNeighbors(@PathVariable("iso") String iso)
 	{
