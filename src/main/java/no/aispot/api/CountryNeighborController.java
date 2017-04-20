@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
 import no.aispot.model.CountryNeighborDto;
 import no.aispot.model.CountryNeighborPair;
 import no.aispot.service.CountryNeighborService;
@@ -35,15 +36,17 @@ public class CountryNeighborController extends AbstractController
 	public Observable<List<List<String>>> getNeighbors(@PathVariable("iso") String iso,
 		@RequestParam(name = "timeout", required = false) Long timeout)
 	{
-		// 3rd party service is very fast
-		// do not apply given timeout to the first call to give a chance to test partial responses
-		return countryNeighborService.getNeighbors(iso, DEFAULT_TIMEOUT)
+		long t = Optional.ofNullable(timeout).orElse(DEFAULT_TIMEOUT);
+		return countryNeighborService.getNeighbors(iso)
 			.map(CountryNeighborDto::getBorders)
-			.flatMap(neighbors -> getJointNeighbors(neighbors, Optional.ofNullable(timeout).orElse(DEFAULT_TIMEOUT)))
+			.flatMap(neighbors -> getJointNeighbors(neighbors))
+			.timeout(t, TimeUnit.MILLISECONDS, Observable.just(Collections.emptyList()))
+			.reduce(new HashSet<>(), getDistinctReducer())
+			.toObservable()
 			.map(this::mapNeighbors);
 	}
 
-	private Observable<Set<CountryNeighborPair>> getJointNeighbors(List<String> neighbors, long timeout)
+	private Observable<List<CountryNeighborPair>> getJointNeighbors(List<String> neighbors)
 	{
 		List<Observable<List<CountryNeighborPair>>> sources = new ArrayList<>();
 		for (String neighbor : neighbors)
@@ -62,35 +65,21 @@ public class CountryNeighborController extends AbstractController
 					return result;
 				}));
 		}
-		return mergeJointNeighbors(sources, timeout);
+		return !sources.isEmpty() ? Observable.merge(sources) : Observable.just(Collections.emptyList());
 	}
 	
-	private Observable<Set<CountryNeighborPair>> mergeJointNeighbors(List<Observable<List<CountryNeighborPair>>> sources,
-		long timeout)
+	private BiFunction<Set<CountryNeighborPair>, List<CountryNeighborPair>, Set<CountryNeighborPair>> getDistinctReducer()
 	{
-		Observable<Set<CountryNeighborPair>> result;
-		if (!sources.isEmpty())
+		return (r, neighbors) ->
 		{
-			Set<CountryNeighborPair> seed = new HashSet<>();
-			result = Observable.merge(sources)
-				.timeout(timeout, TimeUnit.MILLISECONDS, Observable.just(Collections.emptyList()))
-				.reduce(seed, (r, neighbors) ->
-				{
-					for (CountryNeighborPair pairs : neighbors)
-					{
-						r.add(pairs);
-					}
-					return r;
-				})
-				.toObservable();
-		}
-		else
-		{
-			result = Observable.just(Collections.emptySet());
-		}
-		return result;
+			for (CountryNeighborPair pairs : neighbors)
+			{
+				r.add(pairs);
+			}
+			return r;
+		};
 	}
-
+	
 	private List<List<String>> mapNeighbors(Set<CountryNeighborPair> neighbors)
 	{
 		return neighbors.stream().map(pair ->
