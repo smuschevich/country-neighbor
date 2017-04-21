@@ -1,4 +1,4 @@
-package no.aispot.model;
+package no.aispot.countryneighbor.model;
 
 import java.util.List;
 

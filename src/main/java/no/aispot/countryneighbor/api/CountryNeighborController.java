@@ -1,4 +1,4 @@
-package no.aispot.api;
+package no.aispot.countryneighbor.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
-import no.aispot.model.CountryNeighborDto;
-import no.aispot.model.CountryNeighborPair;
-import no.aispot.service.CountryNeighborService;
+import no.aispot.countryneighbor.model.CountryNeighborDto;
+import no.aispot.countryneighbor.model.CountryNeighborPair;
+import no.aispot.countryneighbor.service.CountryNeighborService;
 
 @RestController()
 @RequestMapping("/neighbors")
@@ -33,6 +34,7 @@ public class CountryNeighborController extends AbstractController
 
 	// TODO: List<List<String>> will be replaced by list of objects with custom serialization converter
 	@RequestMapping(method = RequestMethod.GET, path = "/{iso}")
+	@ResponseBody
 	public Observable<List<List<String>>> getNeighbors(@PathVariable("iso") String iso,
 		@RequestParam(name = "timeout", required = false) Long timeout)
 	{

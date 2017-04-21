@@ -1,4 +1,4 @@
-package no.aispot.api.handler;
+package no.aispot.countryneighbor.api.handler;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -7,7 +7,7 @@ import org.springframework.web.method.support.AsyncHandlerMethodReturnValueHandl
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import io.reactivex.Observable;
-import no.aispot.async.ObservableDeferredResult;
+import no.aispot.countryneighbor.async.ObservableDeferredResult;
 
 public class ObservableReturnValueHandler implements AsyncHandlerMethodReturnValueHandler
 {

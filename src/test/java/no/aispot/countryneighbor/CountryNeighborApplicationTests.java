@@ -1,4 +1,4 @@
-package no.aispot;
+package no.aispot.countryneighbor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

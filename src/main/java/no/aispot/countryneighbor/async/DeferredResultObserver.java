@@ -1,4 +1,4 @@
-package no.aispot.async;
+package no.aispot.countryneighbor.async;
 
 import org.springframework.web.context.request.async.DeferredResult;
 

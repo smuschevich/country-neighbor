@@ -1,4 +1,4 @@
-package no.aispot.model;
+package no.aispot.countryneighbor.model;
 
 import lombok.Getter;
 
@@ -28,7 +28,7 @@ public class CountryNeighborPair
 		{
 			CountryNeighborPair that = (CountryNeighborPair) obj;
 			result = (country1.equals(that.country1) && country2.equals(that.country2))
-				|| (country1.equals(that.country2) && country1.equals(that.country2));
+				|| (country1.equals(that.country2) && country2.equals(that.country1));
 		}
 		return result;
 	}

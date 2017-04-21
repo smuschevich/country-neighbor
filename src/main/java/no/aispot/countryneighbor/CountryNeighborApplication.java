@@ -1,4 +1,4 @@
-package no.aispot;
+package no.aispot.countryneighbor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

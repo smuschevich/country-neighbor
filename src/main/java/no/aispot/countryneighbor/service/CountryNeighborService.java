@@ -1,4 +1,4 @@
-package no.aispot.service;
+package no.aispot.countryneighbor.service;
 
 import java.text.MessageFormat;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import io.reactivex.Observable;
-import no.aispot.model.CountryNeighborDto;
+import no.aispot.countryneighbor.model.CountryNeighborDto;
 
 @Service
 public class CountryNeighborService

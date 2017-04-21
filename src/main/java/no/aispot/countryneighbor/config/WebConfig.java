@@ -1,4 +1,4 @@
-package no.aispot.config;
+package no.aispot.countryneighbor.config;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import no.aispot.api.handler.ObservableReturnValueHandler;
+import no.aispot.countryneighbor.api.handler.ObservableReturnValueHandler;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter
